@@ -103,6 +103,17 @@
   {$define HAVE_RTTI}
 {$ifend}
 
+//Gianluca - Giancarlo
+{$IFDEF VER350}
+  {$define NEED_FORMATSETTINGS}
+{$ENDIF}
+
+(*
+{$IF CompilerVersion >= 35.0}
+  {$define NEED_FORMATSETTINGS}
+{$IFEND}
+*)
+
 {$if defined(VER230ORGREATER)}
   {$define NEED_FORMATSETTINGS}
 {$ifend}
@@ -956,7 +967,11 @@ var
   p: PSOChar;
 begin
   Result := FloatToStr(value);
+
   if {$if defined(NEED_FORMATSETTINGS)}FormatSettings.{$ifend}DecimalSeparator <> '.' then
+
+ // if FormatSettings.DecimalSeparator <> '.' then
+
   begin
     p := PSOChar(Result);
     while p^ <> #0 do
